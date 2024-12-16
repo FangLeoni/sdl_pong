@@ -1,6 +1,14 @@
-build:
-	gcc -Wall -std=c99 ./src/*.c -o game -lSDL2 -lSDL2_ttf
+CC = gcc
+CFLAGS = -Wall -std=c11
+CFLAGS = -lSDL2 -lSDL2_ttf
+
+
+SRC  = $(wildcard src/**/*.c) $(wildcard src/*.c) $(wildcard src/**/**/*.c) $(wildcard src/**/**/**/*.c)
+OBJ  = $(SRC:.c=.o)
+
+build: $(OBJ)
+	$(CC) -o game $^ $(CFLAGS)
 run:
 	./game
-clean:
-	rm game
+clean: $(OBJ)
+	rm game $^
